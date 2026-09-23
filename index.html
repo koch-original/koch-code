@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Koch Airlines</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --blue: #073666;
+    --dark-blue: #032c57;
+    --light-blue: #0877ba;
+    --gold: #e8d38a;
+    --text: #111;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--text);
+    background: white;
+}
+
+/* ================= HEADER ================= */
+
+header {
+    height: 78px;
+    background: #073666;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 0 9%;
+    justify-content: space-between;
+    position: relative;
+    z-index: 10;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 26px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.logo-icon {
+    width: 42px;
+    height: 42px;
+    position: relative;
+}
+
+.logo-icon::before {
+    content: "✦";
+    position: absolute;
+    font-size: 42px;
+    color: white;
+    transform: rotate(-25deg);
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    height: 100%;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+nav a:hover::after,
+nav a.active::after {
+    content: "";
+    position: absolute;
+    height: 4px;
+    background: #f2df9d;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 14px;
+}
+
+.search {
+    font-size: 22px;
+}
+
+/* ================= HERO ================= */
+
+.hero {
+    height: 470px;
+    position: relative;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            rgba(255,255,255,.04),
+            rgba(255,255,255,.04)
+        ),
+        linear-gradient(
+            180deg,
+            #8ed2ef 0%,
+            #dceef6 50%,
+            #a6d7e9 100%
+        );
+}
+
+.clouds {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(
+            ellipse at 10% 85%,
+            rgba(255,255,255,.95) 0 10%,
+            transparent 30%
+        ),
+        radial-gradient(
+            ellipse at 35% 90%,
+            rgba(255,255,255,.9) 0 12%,
+            transparent 34%
+        ),
+        radial-gradient(
+            ellipse at 70% 88%,
+            rgba(255,255,255,.9) 0 15%,
+            transparent 38%
+        ),
+        radial-gradient(
+            ellipse at 95% 90%,
+            rgba(255,255,255,.9) 0 12%,
+            transparent 35%
+        );
+}
+
+.sun {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: rgba(255,245,200,.7);
+    right: 4%;
+    top: 25px;
+    filter: blur(15px);
+}
+
+.hero-title {
+    position: absolute;
+    top: 40px;
+    width: 100%;
+    text-align: center;
+    z-index: 2;
+}
+
+.hero-title h1 {
+    font-size: 28px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.hero-title p {
+    margin-top: 5px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* Plane */
+
+.plane {
+    position: absolute;
+    width: 720px;
+    height: 220px;
+    right: 16%;
+    top: 150px;
+    transform: rotate(-1deg);
+    z-index: 1;
+}
+
+.plane-body {
+    position: absolute;
+    width: 680px;
+    height: 75px;
+    background: linear-gradient(
+        to bottom,
+        #fafafa,
+        #d9e0e5
+    );
+    border-radius: 60% 8% 8% 60%;
+    top: 70px;
+    left: 30px;
+    box-shadow: 0 8px 15px rgba(0,0,0,.15);
+}
+
+.plane-nose {
+    position: absolute;
+    right: -8px;
+    top: 70px;
+    width: 70px;
+    height: 75px;
+    background: #e8edf0;
+    border-radius: 0 70% 70% 0;
+}
+
+.plane-tail {
+    position: absolute;
+    left: 0;
+    top: 5px;
+    width: 125px;
+    height: 145px;
+    background: #07509a;
+    clip-path: polygon(0 100%, 25% 0, 100% 0, 72% 100%);
+}
+
+.plane-wing {
+    position: absolute;
+    width: 260px;
+    height: 80px;
+    background: #d1d9dd;
+    clip-path: polygon(0 30%, 100% 0, 72% 100%, 15% 70%);
+    top: 130px;
+    left: 250px;
+}
+
+.plane-wing2 {
+    position: absolute;
+    width: 190px;
+    height: 65px;
+    background: #bfc9ce;
+    clip-path: polygon(0 0, 100% 35%, 72% 100%, 25% 50%);
+    top: 25px;
+    left: 300px;
+}
+
+.window-row {
+    position: absolute;
+    top: 88px;
+    left: 165px;
+    display: flex;
+    gap: 10px;
+}
+
+.window {
+    width: 10px;
+    height: 7px;
+    background: #244866;
+    border-radius: 50%;
+}
+
+.airline-name {
+    position: absolute;
+    top: 106px;
+    right: 90px;
+    font-weight: 700;
+    color: #244866;
+    font-size: 15px;
+}
+
+/* ================= BOOKING FORM ================= */
+
+.booking {
+    width: 385px;
+    background: white;
+    position: absolute;
+    z-index: 5;
+    top: 116px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 7px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.3);
+    overflow: hidden;
+}
+
+.tabs {
+    height: 42px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background: #073666;
+}
+
+.tab {
+    border: none;
+    background: #073666;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.tab.active {
+    background: white;
+    color: #111;
+}
+
+.form {
+    padding: 10px 12px 13px;
+}
+
+.trip-type {
+    display: flex;
+    gap: 8px;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.trip-type label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.fields input,
+.fields select {
+    width: 100%;
+    height: 30px;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    padding: 0 8px;
+    font-size: 12px;
+    background: white;
+}
+
+.passenger {
+    grid-column: span 2;
+}
+
+.search-btn {
+    width: 100%;
+    margin-top: 8px;
+    height: 30px;
+    border: none;
+    border-radius: 4px;
+    background: #0879bd;
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.search-btn:hover {
+    background: #05669f;
+}
+
+/* ================= CONTENT ================= */
+
+.destinations {
+    padding: 26px 9%;
+    display: grid;
+    grid-template-columns: 270px 1fr 270px;
+    gap: 25px;
+    align-items: center;
+}
+
+.map-decoration {
+    height: 145px;
+    position: relative;
+    overflow: hidden;
+}
+
+.map-decoration::before {
+    content: "WORLD";
+    position: absolute;
+    font-size: 60px;
+    font-weight: 900;
+    color: #edf1f3;
+    left: 15px;
+    top: 35px;
+}
+
+.routes {
+    position: absolute;
+    width: 210px;
+    height: 100px;
+    border-top: 2px dotted #315a76;
+    border-radius: 50%;
+    top: 35px;
+    left: 45px;
+    transform: rotate(-10deg);
+}
+
+.destination-content h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.card {
+    height: 135px;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    color: white;
+    display: flex;
+    align-items: flex-end;
+    padding: 10px;
+    background-size: cover;
+    background-position: center;
+    box-shadow: inset 0 -80px 70px rgba(0,0,0,.5);
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        transparent 40%,
+        rgba(0,0,0,.7)
+    );
+}
+
+.card span {
+    position: relative;
+    z-index: 2;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.london {
+    background:
+        linear-gradient(135deg,#c49b72,#344b5c,#182f44);
+}
+
+.tokyo {
+    background:
+        linear-gradient(135deg,#d09b7d,#496779,#263b49);
+}
+
+.dubai {
+    background:
+        linear-gradient(135deg,#efd0b4,#937d6d,#263846);
+}
+
+/* ================= MILES ================= */
+
+.miles {
+    height: 145px;
+    padding: 20px 10px;
+}
+
+.miles h2 {
+    font-size: 17px;
+    margin-bottom: 5px;
+}
+
+.miles h3 {
+    font-size: 13px;
+    margin-bottom: 3px;
+}
+
+.miles p {
+    font-size: 11px;
+    line-height: 1.4;
+    color: #444;
+}
+
+.learn {
+    display: inline-block;
+    margin-top: 9px;
+    background: #0877ba;
+    color: white;
+    text-decoration: none;
+    padding: 8px 13px;
+    font-size: 10px;
+    font-weight: bold;
+    border-radius: 4px;
+}
+
+/* ================= EXPERIENCE ================= */
+
+.experience {
+    padding: 0 9% 35px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.experience-box {
+    border-radius: 8px;
+    padding: 18px;
+    background: #f0f3f5;
+}
+
+.experience-box.gold {
+    background: #f4eddb;
+}
+
+.experience-box h2 {
+    font-size: 17px;
+    margin-bottom: 14px;
+}
+
+.features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.feature h3 {
+    font-size: 13px;
+    margin-bottom: 4px;
+}
+
+.feature p {
+    font-size: 11px;
+    color: #555;
+    line-height: 1.35;
+}
+
+/* ================= FOOTER ================= */
+
+footer {
+    background: #073666;
+    color: white;
+    padding: 18px 9%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.footer-title {
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.footer-links a {
+    color: white;
+    font-size: 10px;
+    text-decoration: none;
+}
+
+.social {
+    text-align: right;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.social-icons span {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+}
+
+.copyright {
+    grid-column: span 2;
+    border-top: 1px solid rgba(255,255,255,.2);
+    margin-top: 15px;
+    padding-top: 10px;
+    font-size: 9px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 1100px) {
+    header {
+        padding: 0 4%;
+    }
+
+    nav {
+        gap: 15px;
+    }
+
+    .destinations {
+        padding: 25px 4%;
+        grid-template-columns: 180px 1fr 190px;
+    }
+
+    .experience {
+        padding: 0 4% 30px;
+    }
+
+    footer {
+        padding: 18px 4%;
+    }
+}
+
+@media (max-width: 800px) {
+
+    header {
+        height: auto;
+        min-height: 70px;
+        flex-wrap: wrap;
+        padding: 15px 20px;
+    }
+
+    nav {
+        order: 3;
+        width: 100%;
+        overflow-x: auto;
+        height: 40px;
+    }
+
+    .header-right {
+        margin-left: auto;
+    }
+
+    .hero {
+        height: 560px;
+    }
+
+    .hero-title {
+        top: 25px;
+        padding: 0 20px;
+    }
+
+    .hero-title h1 {
+        font-size: 21px;
+    }
+
+    .booking {
+        width: calc(100% - 30px);
+        top: 125px;
+    }
+
+    .plane {
+        transform: scale(.65);
+        right: -100px;
+        top: 300px;
+    }
+
+    .destinations {
+        display: block;
+        padding: 25px 20px;
+    }
+
+    .map-decoration {
+        display: none;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        height: 170px;
+    }
+
+    .miles {
+        padding: 25px 0 0;
+    }
+
+    .experience {
+        grid-template-columns: 1fr;
+        padding: 0 20px 25px;
+    }
+
+    footer {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .logo {
+        font-size: 20px;
+    }
+
+    .header-right {
+        gap: 8px;
+    }
+
+    .search {
+        display: none;
+    }
+
+    .tabs {
+        font-size: 10px;
+    }
+
+    .tab {
+        font-size: 10px;
+    }
+
+    .fields {
+        grid-template-columns: 1fr;
+    }
+
+    .passenger {
+        grid-column: span 1;
+    }
+
+    .features {
+        grid-template-columns: 1fr;
+    }
+
+    footer {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .social {
+        text-align: left;
+    }
+
+    .social-icons {
+        justify-content: flex-start;
+    }
+
+    .copyright {
+        grid-column: span 1;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+    <div class="logo">
+        <div class="logo-icon"></div>
+        <span>Koch Airlines</span>
+    </div>
+
+    <nav>
+        <a href="#" class="active">HOME</a>
+        <a href="#book">BOOK</a>
+        <a href="#trips">MANAGE MY TRIP</a>
+        <a href="#destinations">DESTINATIONS</a>
+        <a href="#experience">EXPERIENCE</a>
+        <a href="#miles">MILES CLUB</a>
+        <a href="#support">SUPPORT</a>
+    </nav>
+
+    <div class="header-right">
+        <span class="search">⌕</span>
+        <span>♙ Sign in</span>
+        <span>USD⌄</span>
+    </div>
+
+</header>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero" id="book">
+
+    <div class="clouds"></div>
+    <div class="sun"></div>
+
+    <div class="hero-title">
+        <h1>Explore the world with Koch Airlines.</h1>
+        <p>Book your next journey & experience premium comfort.</p>
+    </div>
+
+    <!-- Fake airplane created with CSS -->
+    <div class="plane">
+
+        <div class="plane-tail"></div>
+        <div class="plane-body"></div>
+        <div class="plane-nose"></div>
+        <div class="plane-wing"></div>
+        <div class="plane-wing2"></div>
+
+        <div class="window-row">
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+            <div class="window"></div>
+        </div>
+
+        <div class="airline-name">
+            Koch Airlines
+        </div>
+
+    </div>
+
+
+    <!-- Booking form -->
+
+    <div class="booking">
+
+        <div class="tabs">
+
+            <button class="tab active">Book Flight</button>
+            <button class="tab">Check-In</button>
+            <button class="tab">My Trips</button>
+            <button class="tab">Flight Status</button>
+
+        </div>
+
+        <div class="form">
+
+            <div class="trip-type">
+
+                <label>
+                    <input type="radio" name="trip" checked>
+                    One-Way / Round-Trip
+                </label>
+
+            </div>
+
+            <div class="fields">
+
+                <input
+                    type="text"
+                    placeholder="From (Departing From...)"
+                    id="from"
+                >
+
+                <input
+                    type="text"
+                    placeholder="To (Going To...)"
+                    id="to"
+                >
+
+                <input
+                    type="date"
+                    id="depart"
+                >
+
+                <input
+                    type="date"
+                    id="return"
+                >
+
+                <select class="passenger">
+                    <option>Passengers (1 Adult, Economy)</option>
+                    <option>2 Adults, Economy</option>
+                    <option>2 Adults, 1 Child</option>
+                    <option>Business Class</option>
+                    <option>First Class</option>
+                </select>
+
+            </div>
+
+            <button class="search-btn" onclick="searchFlights()">
+                SEARCH FLIGHTS
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= DESTINATIONS ================= -->
+
+<section class="destinations" id="destinations">
+
+    <div class="map-decoration">
+        <div class="routes"></div>
+    </div>
+
+
+    <div class="destination-content">
+
+        <h2>FEATURED DESTINATIONS</h2>
+
+        <div class="cards">
+
+            <div class="card london">
+                <span>London (LHR) - From $599</span>
+            </div>
+
+            <div class="card tokyo">
+                <span>Tokyo (NRT) - From $849</span>
+            </div>
+
+            <div class="card dubai">
+                <span>Dubai (DXB) - From $719</span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="miles" id="miles">
+
+        <h2>FLIGHT MILES CLUB</h2>
+
+        <h3>Earn Rewards for</h3>
+
+        <p>
+            Get your bonus Flights,
+            flights skyline winners,
+            and earn rewards.
+        </p>
+
+        <a href="#" class="learn">
+            LEARN MORE
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- ================= EXPERIENCE ================= -->
+
+<section class="experience" id="experience">
+
+    <div class="experience-box">
+
+        <h2>THE KOCH EXPERIENCE</h2>
+
+        <div class="features">
+
+            <div class="feature">
+                <h3>Premium Cabins</h3>
+                <p>
+                    We give your premium cabins
+                    at modern standards.
+                </p>
+            </div>
+
+            <div class="feature">
+                <h3>World-Class Service</h3>
+                <p>
+                    Provide continuous
+                    notification and our
+                    pleasant luxury.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="experience-box gold">
+
+        <h2>JOIN MILES CLUB</h2>
+
+        <div class="feature">
+
+            <h3>Earn Rewards</h3>
+
+            <p>
+                Earn points and rewards
+                from every journey.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer id="support">
+
+    <div>
+
+        <div class="footer-title">
+            About Us
+        </div>
+
+        <div class="footer-links">
+            <a href="#">About Us</a>
+            <a href="#">Careers</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Use</a>
+        </div>
+
+    </div>
+
+
+    <div class="social">
+
+        <div class="footer-title">
+            Social Media
+        </div>
+
+        <div class="social-icons">
+            <span>f</span>
+            <span>◎</span>
+            <span>▶</span>
+            <span>𝕏</span>
+        </div>
+
+    </div>
+
+
+    <div class="copyright">
+        © 2026 Koch Airlines. All rights reserved.
+    </div>
+
+</footer>
+
+
+<script>
+
+/* ================= TABS ================= */
+
+const tabs = document.querySelectorAll(".tab");
+
+tabs.forEach(tab => {
+
+    tab.addEventListener("click", () => {
+
+        tabs.forEach(t => {
+            t.classList.remove("active");
+        });
+
+        tab.classList.add("active");
+
+    });
+
+});
+
+
+/* ================= SEARCH ================= */
+
+function searchFlights() {
+
+    const from = document.getElementById("from").value;
+    const to = document.getElementById("to").value;
+    const depart = document.getElementById("depart").value;
+
+    if (!from || !to || !depart) {
+
+        alert(
+            "Please enter departure airport, destination and departure date."
+        );
+
+        return;
+    }
+
+    alert(
+        "Searching flights:\n\n" +
+        from +
+        " → " +
+        to +
+        "\nDate: " +
+        depart
+    );
+
+}
+
+
+/* ================= SMOOTH SCROLL ================= */
+
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+
+    link.addEventListener("click", function(e) {
+
+        const target = document.querySelector(
+            this.getAttribute("href")
+        );
+
+        if (target) {
+
+            e.preventDefault();
+
+            target.scrollIntoView({
+                behavior: "smooth"
+            });
+
+        }
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>
